@@ -708,6 +708,74 @@
       font-size: 0.78rem; color: var(--muted);
     }
 
+    /* ────────────────────────────────────────────────────────────────────── */
+    /*  VIDEO SECTION                                                         */
+    /* ────────────────────────────────────────────────────────────────────── */
+    .video-section {
+      background: var(--bg-dark);
+      padding: var(--pad) 0;
+    }
+    .video-wrap {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    /* Custom video player container */
+    .video-player {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 60px rgba(169,240,15,0.08), 0 24px 64px rgba(0,0,0,0.5);
+      background: #000;
+    }
+    .video-player video {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16/9;
+      object-fit: contain;
+      background: #000;
+    }
+    /* Play overlay (shown before first play) */
+    .video-overlay {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: rgba(21,32,37,0.55);
+      backdrop-filter: blur(2px);
+      cursor: pointer;
+      transition: opacity var(--t-med);
+    }
+    .video-overlay.hidden { opacity: 0; pointer-events: none; }
+    .play-btn {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+      transition: transform var(--t-fast), box-shadow var(--t-fast);
+    }
+    .video-overlay:hover .play-btn {
+      transform: scale(1.1);
+      box-shadow: var(--accent-glow);
+    }
+    .play-btn svg { width: 28px; height: 28px; margin-left: 4px; }
+    .video-overlay-label {
+      font-size: 0.8rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--off-white);
+    }
+    /* Decorative corner accents around video */
+    .video-corner {
+      position: absolute;
+      width: 24px; height: 24px;
+      pointer-events: none;
+    }
+    .video-corner--tl { top: -1px; left: -1px; border-top: 2px solid var(--accent); border-left: 2px solid var(--accent); border-radius: 2px 0 0 0; }
+    .video-corner--tr { top: -1px; right: -1px; border-top: 2px solid var(--accent); border-right: 2px solid var(--accent); border-radius: 0 2px 0 0; }
+    .video-corner--bl { bottom: -1px; left: -1px; border-bottom: 2px solid var(--accent); border-left: 2px solid var(--accent); border-radius: 0 0 0 2px; }
+    .video-corner--br { bottom: -1px; right: -1px; border-bottom: 2px solid var(--accent); border-right: 2px solid var(--accent); border-radius: 0 0 2px 0; }
+
     /* ─── Misc helpers ───────────────────────────────────────────────────── */
     .text-accent { color: var(--accent); }
     .github-icon { width: 18px; height: 18px; }
@@ -725,6 +793,7 @@
       <span class="nav__name">SecureYield</span>
     </a>
     <ul class="nav__links" id="navLinks">
+      <li><a href="#flash">Flash Video</a></li>
       <li><a href="#problem">Problem</a></li>
       <li><a href="#how-it-works">How It Works</a></li>
       <li><a href="#products">Products</a></li>
@@ -866,6 +935,42 @@
       <rect x="1343" y="155" width="30" height="30" fill="url(#skyGrad)"/>
       <rect x="1376" y="162" width="64" height="23" fill="url(#skyGrad)"/>
     </svg>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!--  VIDEO — SecureYield Flash                                            -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section id="flash" class="video-section">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center;max-width:600px;margin:0 auto 2.5rem;">
+      <span class="kicker">SecureYield Flash</span>
+      <h2>Watch the Full Story</h2>
+      <p>From green electricity to verified, auditable, compliance-by-design RWA products — the complete narrative in two minutes.</p>
+    </div>
+    <div class="video-wrap reveal" data-delay="100">
+      <div class="video-player" id="videoPlayer">
+        <video id="heroVideo" preload="metadata" playsinline
+               style="width:100%;display:block;">
+          <source src="RWA_Flash.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+        <!-- Custom play overlay -->
+        <div class="video-overlay" id="videoOverlay">
+          <div class="play-btn" aria-label="Play video">
+            <svg viewBox="0 0 24 24" fill="var(--bg-primary)">
+              <polygon points="6,3 20,12 6,21"/>
+            </svg>
+          </div>
+          <span class="video-overlay-label">Play SecureYield Flash</span>
+        </div>
+        <!-- Corner accents -->
+        <div class="video-corner video-corner--tl"></div>
+        <div class="video-corner video-corner--tr"></div>
+        <div class="video-corner video-corner--bl"></div>
+        <div class="video-corner video-corner--br"></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1616,6 +1721,31 @@
       if (panel) panel.classList.add('tab-panel--active');
     });
   });
+
+  /* ── Video overlay ────────────────────────────────────────────────── */
+  var videoOverlay = document.getElementById('videoOverlay');
+  var heroVideo    = document.getElementById('heroVideo');
+  if (videoOverlay && heroVideo) {
+    function hideOverlay() {
+      videoOverlay.classList.add('hidden');
+    }
+    videoOverlay.addEventListener('click', function () {
+      heroVideo.play();
+      hideOverlay();
+    });
+    // Also hide overlay if native controls used to play
+    heroVideo.addEventListener('play', hideOverlay);
+    // Show overlay again when video ends
+    heroVideo.addEventListener('ended', function () {
+      heroVideo.currentTime = 0;
+      videoOverlay.classList.remove('hidden');
+    });
+    // Enable native controls after first play for full UX
+    heroVideo.addEventListener('play', function onFirstPlay() {
+      heroVideo.controls = true;
+      heroVideo.removeEventListener('play', onFirstPlay);
+    }, { once: true });
+  }
 
   /* ── Scroll spy ───────────────────────────────────────────────────── */
   var sections = document.querySelectorAll('section[id]');
