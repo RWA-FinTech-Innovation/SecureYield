@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && rm -rf dist/3d-demo && cp -R 3d-demo dist/3d-demo",
+    "dev:game": "npm run dev --prefix game",
+    "sync:game": "npm run build:game && mkdir -p public/game && cp -R game/dist/* public/game/",
+    "dev:site": "npm run sync:game && vite",
+    "build:game": "npm install --prefix game && npm run build --prefix game",
+    "build": "vite build && npm run build:game && rm -rf dist/game dist/3d-demo && cp -R game/dist dist/game && cp -R 3d-demo dist/3d-demo",
     "lint": "eslint .",
     "preview": "vite preview"
   },

@@ -61,7 +61,8 @@ const Hero = () => {
           SecureYield converts verified green AI compute revenue into compliant ESG RWA financial products — structured for institutional investors via Hong Kong's regulated framework.
         </p>
         <div className="hero__ctas reveal">
-          <a href="#how-it-works" className="btn btn--primary">Explore the System</a>
+          <a href="#quest-demo" className="btn btn--primary">Start the SecureYield Quest</a>
+          <a href="#how-it-works" className="btn btn--ghost">How It Works</a>
           <a href="https://github.com/RWA-FinTech-Innovation/Tokenization" target="_blank" rel="noopener" className="btn btn--ghost">View Open Source Code ↗</a>
         </div>
       </div>
