@@ -1,14 +1,16 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 const VideoSection = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
+  const [isEnded, setIsEnded] = useState(false);
   const videoRef = useRef(null);
+  const videoSrc = `${import.meta.env.BASE_URL}RWA_Flash.mp4`;
 
-  const handlePlayClick = () => {
-    if (videoRef.current) {
-      videoRef.current.play();
-      setIsPlaying(true);
-    }
+  const handlePlay = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.ended) video.currentTime = 0;
+    video.play();
   };
 
   return (
@@ -21,18 +23,45 @@ const VideoSection = () => {
         </div>
         <div className="video-wrap reveal">
           <div className="video-player" id="videoPlayer">
-            <video ref={videoRef} id="heroVideo" preload="metadata" playsInline style={{ width: '100%', display: 'block' }}>
-              <source src="RWA_Flash.mp4" type="video/mp4"/>
+            <video
+              ref={videoRef}
+              id="heroVideo"
+              preload="none"
+              playsInline
+              controls
+              onPlay={() => {
+                setHasStarted(true);
+                setIsEnded(false);
+              }}
+              onEnded={() => {
+                setIsEnded(true);
+              }}
+              style={{ width: '100%', display: 'block' }}
+            >
+              <source src={videoSrc} type="video/mp4"/>
               Your browser does not support HTML5 video.
             </video>
-            {!isPlaying && (
-              <div className="video-overlay" id="videoOverlay" onClick={handlePlayClick}>
+            {(!hasStarted || isEnded) && (
+              <div
+                className="video-overlay"
+                id="videoOverlay"
+                role="button"
+                tabIndex={0}
+                aria-label={!hasStarted ? 'Play video' : 'Replay video'}
+                onClick={handlePlay}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handlePlay();
+                  }
+                }}
+              >
                 <div className="play-btn" aria-label="Play video">
                   <svg viewBox="0 0 24 24" fill="var(--bg-primary)">
                     <polygon points="6,3 20,12 6,21"/>
                   </svg>
                 </div>
-                <span className="video-overlay-label">Play SecureYield Flash</span>
+                <span className="video-overlay-label">{!hasStarted ? 'Play SecureYield Flash' : 'Replay SecureYield Flash'}</span>
               </div>
             )}
             <div className="video-corner video-corner--tl"></div>

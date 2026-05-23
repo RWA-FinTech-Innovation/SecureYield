@@ -1,6 +1,10 @@
-import React from 'react';
+import { useState } from 'react';
 
 const ProcessSection = () => {
+  const [hoverIdx, setHoverIdx] = useState(null);
+  const [pinIdx, setPinIdx] = useState(null);
+  const activeIdx = pinIdx ?? hoverIdx;
+
   const steps = [
     { num: '1', ico: '⚡', label: 'Green Power', desc: 'Verified renewable source' },
     { num: '2', ico: '🖥️', label: 'AI Compute', desc: 'GPU workload verified' },
@@ -22,7 +26,21 @@ const ProcessSection = () => {
         <div className="process-wrap reveal">
           <div className="process-flow">
             {steps.map((step, idx) => (
-              <div key={idx} className="process-step">
+              <div
+                key={idx}
+                className={`process-step ${activeIdx === idx ? 'process-step--active' : ''}`}
+                tabIndex={0}
+                role="button"
+                aria-pressed={pinIdx === idx}
+                onMouseEnter={() => setHoverIdx(idx)}
+                onMouseLeave={() => setHoverIdx(null)}
+                onFocus={() => setHoverIdx(idx)}
+                onBlur={() => setHoverIdx(null)}
+                onClick={() => setPinIdx((prev) => (prev === idx ? null : idx))}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') setPinIdx((prev) => (prev === idx ? null : idx));
+                }}
+              >
                 <div className="process-step__node">
                   <div className="process-step__num">STEP</div>
                   <div className="process-step__ico">{step.ico}</div>

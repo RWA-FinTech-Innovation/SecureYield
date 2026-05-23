@@ -1,6 +1,8 @@
-import React from 'react';
+import { useState } from 'react';
 
 const VaultSection = () => {
+  const [activeIdx, setActiveIdx] = useState(null);
+
   const vaults = [
     { num: '1', title: 'GPUMeterRegistry', desc: 'Immutable device & workload log', tags: 'Hardware Layer' },
     { num: '2', title: 'RevenueStatement', desc: 'Verified AI compute earnings', tags: 'Financial Data' },
@@ -17,9 +19,19 @@ const VaultSection = () => {
           <h2>Five Ledgers of Immutable Truth</h2>
           <p>Every transaction, every device, every revenue event — locked and auditable forever.</p>
         </div>
-        <div className="vault-grid">
+        <div className={`vault-grid ${activeIdx != null ? 'vault-grid--focused' : ''}`}>
           {vaults.map((vault, idx) => (
-            <div key={idx} className="vault-card reveal">
+            <div
+              key={idx}
+              className={`vault-card reveal ${activeIdx === idx ? 'vault-card--active' : ''} ${activeIdx != null && activeIdx !== idx ? 'vault-card--dim' : ''}`}
+              tabIndex={0}
+              role="button"
+              aria-pressed={activeIdx === idx}
+              onClick={() => setActiveIdx((prev) => (prev === idx ? null : idx))}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') setActiveIdx((prev) => (prev === idx ? null : idx));
+              }}
+            >
               <div className="vault-card__num">{vault.num}</div>
               <h3>{vault.title}</h3>
               <p>{vault.desc}</p>

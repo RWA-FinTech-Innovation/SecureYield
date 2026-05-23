@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 60);
@@ -10,20 +11,60 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const sectionIds = [
+      'hero',
+      'flash',
+      'demo-3d',
+      'problem',
+      'market',
+      'how-it-works',
+      'architecture',
+      'evidence-vault',
+      'products',
+      'technology',
+      'compliance'
+    ];
+
+    const elements = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px', threshold: 0.01 }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  const handleNavClick = (id) => {
+    setIsMenuOpen(false);
+    setActiveSection(id);
+  };
+
   return (
     <nav className={`nav ${isScrolled ? 'nav--scrolled' : ''}`} id="nav">
       <div className="nav__inner container">
-        <a href="#hero" className="nav__brand">
+        <a href="#hero" className="nav__brand" onClick={() => handleNavClick('hero')}>
           <div className="nav__mark">SY</div>
           <span className="nav__name">SecureYield</span>
         </a>
         <ul className={`nav__links ${isMenuOpen ? 'open' : ''}`} id="navLinks">
-          <li><a href="#flash">Flash Video</a></li>
-          <li><a href="#problem">Problem</a></li>
-          <li><a href="#how-it-works">How It Works</a></li>
-          <li><a href="#products">Products</a></li>
-          <li><a href="#technology">Technology</a></li>
-          <li><a href="#compliance">Compliance</a></li>
+          <li><a href="#flash" className={activeSection === 'flash' ? 'active' : ''} onClick={() => handleNavClick('flash')}>Flash Video</a></li>
+          <li><a href="#demo-3d" className={activeSection === 'demo-3d' ? 'active' : ''} onClick={() => handleNavClick('demo-3d')}>3D Demo</a></li>
+          <li><a href="#problem" className={activeSection === 'problem' ? 'active' : ''} onClick={() => handleNavClick('problem')}>Problem</a></li>
+          <li><a href="#how-it-works" className={activeSection === 'how-it-works' ? 'active' : ''} onClick={() => handleNavClick('how-it-works')}>How It Works</a></li>
+          <li><a href="#products" className={activeSection === 'products' ? 'active' : ''} onClick={() => handleNavClick('products')}>Products</a></li>
+          <li><a href="#technology" className={activeSection === 'technology' ? 'active' : ''} onClick={() => handleNavClick('technology')}>Technology</a></li>
+          <li><a href="#compliance" className={activeSection === 'compliance' ? 'active' : ''} onClick={() => handleNavClick('compliance')}>Compliance</a></li>
         </ul>
         <a href="https://github.com/RWA-FinTech-Innovation/Tokenization" target="_blank" rel="noopener"
            className="btn btn--outline nav__cta" style={{ padding:'0.55rem 1.1rem',fontSize:'0.8rem'}}>

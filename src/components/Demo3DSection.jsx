@@ -1,0 +1,21 @@
+const Demo3DSection = () => {
+  const demoUrl = `${import.meta.env.BASE_URL}3d-demo/index.html`;
+
+  return (
+    <section id="demo-3d" className="section section--dark demo3d-section">
+      <div className="demo3d-bleed reveal">
+        <div className="demo3d-bleed__stage">
+          <iframe
+            title="SecureYield 3D Demo"
+            className="demo3d-bleed__frame"
+            src={demoUrl}
+            loading="lazy"
+            allowFullScreen
+          />
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Demo3DSection;

@@ -1,6 +1,8 @@
-import React from 'react';
+import { useState } from 'react';
 
 const ProblemSection = () => {
+  const [activeIdx, setActiveIdx] = useState(null);
+
   const problems = [
     {
       icon: '⚡',
@@ -28,7 +30,17 @@ const ProblemSection = () => {
         </div>
         <div className="problem-grid">
           {problems.map((problem, idx) => (
-            <article key={idx} className="problem-card reveal">
+            <article
+              key={idx}
+              className={`problem-card reveal ${activeIdx === idx ? 'problem-card--active' : ''}`}
+              tabIndex={0}
+              role="button"
+              aria-pressed={activeIdx === idx}
+              onClick={() => setActiveIdx((prev) => (prev === idx ? null : idx))}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') setActiveIdx((prev) => (prev === idx ? null : idx));
+              }}
+            >
               <div className="problem-card__icon">{problem.icon}</div>
               <h3>{problem.title}</h3>
               <p>{problem.desc}</p>

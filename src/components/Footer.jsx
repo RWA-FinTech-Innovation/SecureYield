@@ -1,14 +1,12 @@
-import React from 'react';
-
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer__top">
-          <div className="footer__brand">
+          <a className="footer__brand" href="#hero" aria-label="Back to top">
             <div className="nav__mark">SY</div>
             <span>SecureYield</span>
-          </div>
+          </a>
           <div className="footer__links">
             <a href="#how-it-works">How It Works</a>
             <a href="#architecture">Architecture</a>

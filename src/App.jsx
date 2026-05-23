@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import VideoSection from './components/VideoSection';
+import Demo3DSection from './components/Demo3DSection';
 import ProblemSection from './components/ProblemSection';
 import MarketSection from './components/MarketSection';
 import ProcessSection from './components/ProcessSection';
@@ -19,7 +20,12 @@ function App() {
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+          const el = entry.target;
+          const delay = Number.parseInt(el.dataset.delay || '0', 10);
+          window.setTimeout(() => {
+            el.dataset.revealed = 'true';
+          }, Number.isFinite(delay) ? delay : 0);
+          revealObserver.unobserve(el);
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
@@ -36,6 +42,7 @@ function App() {
       <Navigation />
       <Hero />
       <VideoSection />
+      <Demo3DSection />
       <ProblemSection />
       <MarketSection />
       <ProcessSection />

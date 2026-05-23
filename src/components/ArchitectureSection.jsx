@@ -1,6 +1,8 @@
-import React from 'react';
+import { useState } from 'react';
 
 const ArchitectureSection = () => {
+  const [activeIdx, setActiveIdx] = useState(null);
+
   const layers = [
     {
       type: 'financial',
@@ -40,9 +42,19 @@ const ArchitectureSection = () => {
           <h2>Compliance-by-Design Architecture</h2>
           <p>Every layer is auditable, standardized, and integrated with Hong Kong's regulatory framework.</p>
         </div>
-        <div className="arch-layers">
+        <div className={`arch-layers ${activeIdx != null ? 'arch-layers--focused' : ''}`}>
           {layers.map((layer, idx) => (
-            <div key={idx} className={`arch-layer arch-layer--${layer.type} reveal`}>
+            <div
+              key={idx}
+              className={`arch-layer arch-layer--${layer.type} reveal ${activeIdx === idx ? 'arch-layer--active' : ''} ${activeIdx != null && activeIdx !== idx ? 'arch-layer--dim' : ''}`}
+              tabIndex={0}
+              role="button"
+              aria-pressed={activeIdx === idx}
+              onClick={() => setActiveIdx((prev) => (prev === idx ? null : idx))}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') setActiveIdx((prev) => (prev === idx ? null : idx));
+              }}
+            >
               <div className="arch-layer__accent"></div>
               <div className="arch-layer__body">
                 <div className="arch-layer__tag">{layer.tag}</div>
