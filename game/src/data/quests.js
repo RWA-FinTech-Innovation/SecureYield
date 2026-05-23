@@ -1,0 +1,90 @@
+/** Quest stages aligned with SecureYield RWA pipeline */
+export const STAGES = [
+  {
+    id: 0,
+    key: 'wallet',
+    title: 'Connect Wallet',
+    short: 'Wallet',
+    action: 'Connect MetaMask',
+    business: 'Investor identity entry',
+    color: '#6eb5ff',
+  },
+  {
+    id: 1,
+    key: 'green',
+    title: 'Green Power Gate',
+    short: 'Green',
+    action: 'Claim green power proof',
+    business: 'MWh · REC · IoT attestation',
+    color: '#5d9e3a',
+  },
+  {
+    id: 2,
+    key: 'compute',
+    title: 'AI Compute Gate',
+    short: 'Compute',
+    action: 'Mint GPU-hours from kWh',
+    business: 'kWh → GPU-hour conversion',
+    color: '#a9f00f',
+  },
+  {
+    id: 3,
+    key: 'token',
+    title: 'Compute Token Gate',
+    short: 'Token',
+    action: 'Record compute revenue',
+    business: 'ComputePowerToken · tx hash',
+    color: '#ffd166',
+  },
+  {
+    id: 4,
+    key: 'vault',
+    title: 'Evidence Vault',
+    short: 'Vault',
+    action: 'Open five-layer ledger',
+    business: 'Audit · oracle · custody · legal',
+    color: '#c77dff',
+  },
+  {
+    id: 5,
+    key: 'legal',
+    title: 'HK Legal Gate',
+    short: 'Legal',
+    action: 'Pass compliance check',
+    business: 'Hong Kong regulatory controls',
+    color: '#ff6b9d',
+  },
+  {
+    id: 6,
+    key: 'finance',
+    title: 'RWA Finance Gate',
+    short: 'Finance',
+    action: 'Subscribe & invest',
+    business: 'FundShare · PortfolioEquity RWA',
+    color: '#4ecdc4',
+  },
+  {
+    id: 7,
+    key: 'badge',
+    title: 'Completion Badge',
+    short: 'Badge',
+    action: 'Sign RWA Passport',
+    business: 'Demo receipt · signed badge',
+    color: '#f0f4f1',
+  },
+];
+
+export const INITIAL_ASSETS = {
+  mwh: 0,
+  rec: 0,
+  gpuHours: 0,
+  computeToken: 0,
+  rwaToken: 0,
+};
+
+export const STAGE_ASSET_DELTAS = {
+  1: { mwh: 12.5, rec: 1 },
+  2: { gpuHours: 48 },
+  3: { computeToken: 500 },
+  6: { rwaToken: 1000 },
+};

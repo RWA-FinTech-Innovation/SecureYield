@@ -1,0 +1,45 @@
+{
+  "modeLabel": "Static Demo",
+  "generated_at": "2026-05-23T00:00:00Z",
+  "compute_revenue_task": {
+    "task_id": "task_demo_compute_revenue",
+    "status": "succeeded",
+    "policy_result": "approved",
+    "evidence_hash": "86b5c6b55649e9b5d29ced1d3652c1e4dd54205c09dd8ba320f5e3135c5ae58c",
+    "related_tx_hashes": ["0xcf321fb487d298ffa42678817c07293d186adbb9c8853809"]
+  },
+  "compute_power_asset": {
+    "asset_id": "compute-token-aicomp-001",
+    "asset_type": "ComputePowerToken",
+    "owner": "bob",
+    "issuer": "custodian_A",
+    "amount": 500,
+    "status": "issued",
+    "chain_tx_hash": "0xcf321fb487d298ffa42678817c07293d186adbb9c8853809"
+  },
+  "fund_subscribe_task": {
+    "task_id": "task_demo_fund_subscribe",
+    "status": "succeeded",
+    "evidence_hash": "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
+    "related_tx_hashes": ["0xab12cd34ef5678901234567890ab12cd34ef5678901234567890ab12cd34"]
+  },
+  "portfolio_invest_task": {
+    "task_id": "task_demo_portfolio_invest",
+    "status": "succeeded",
+    "evidence_hash": "fedcba0987654321fedcba0987654321fedcba0987654321fedcba0987654321",
+    "related_tx_hashes": ["0x9876543210fedcba9876543210fedcba9876543210fedcba9876543210fedcba"]
+  },
+  "audit_counts": {
+    "fund_share": { "audit_logs": 1, "tool_calls": 7, "transactions": 1, "chain_events": 1 },
+    "portfolio_equity": { "audit_logs": 1, "tool_calls": 7, "transactions": 1, "chain_events": 1 },
+    "compute_power": { "audit_logs": 1, "tool_calls": 8, "transactions": 1, "chain_events": 1 }
+  },
+  "institutional_controls": {
+    "custody_wallets": 4,
+    "kyc_aml_profiles": 4,
+    "licensed_institutions": 3,
+    "oracle_attestations": 1,
+    "rights_mappings": 3,
+    "signature_requests": 3
+  }
+}

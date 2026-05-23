@@ -4,8 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build && rm -rf dist/3d-demo && cp -R 3d-demo dist/3d-demo",
+    "dev": "npm run sync:demos && vite",
+    "dev:game": "npm run dev --prefix game",
+    "sync:3d-demo": "rm -rf public/3d-demo && cp -R 3d-demo public/3d-demo",
+    "sync:game": "npm run build:game && rm -rf public/game && mkdir -p public/game && cp -R game/dist/* public/game/",
+    "sync:demos": "npm run sync:3d-demo && npm run sync:game",
+    "dev:site": "npm run sync:demos && vite",
+    "build:game": "npm install --prefix game && npm run build --prefix game",
+    "build": "vite build && npm run build:game && rm -rf dist/game dist/3d-demo && cp -R game/dist dist/game && cp -R 3d-demo dist/3d-demo",
     "lint": "eslint .",
     "preview": "vite preview"
   },

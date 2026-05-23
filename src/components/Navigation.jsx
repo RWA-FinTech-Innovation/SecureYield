@@ -16,6 +16,7 @@ const Navigation = () => {
       'hero',
       'flash',
       'demo-3d',
+      'quest-demo',
       'problem',
       'market',
       'how-it-works',
@@ -60,6 +61,7 @@ const Navigation = () => {
         <ul className={`nav__links ${isMenuOpen ? 'open' : ''}`} id="navLinks">
           <li><a href="#flash" className={activeSection === 'flash' ? 'active' : ''} onClick={() => handleNavClick('flash')}>Flash Video</a></li>
           <li><a href="#demo-3d" className={activeSection === 'demo-3d' ? 'active' : ''} onClick={() => handleNavClick('demo-3d')}>3D Demo</a></li>
+          <li><a href="#quest-demo" className={activeSection === 'quest-demo' ? 'active' : ''} onClick={() => handleNavClick('quest-demo')}>Quest Game</a></li>
           <li><a href="#problem" className={activeSection === 'problem' ? 'active' : ''} onClick={() => handleNavClick('problem')}>Problem</a></li>
           <li><a href="#how-it-works" className={activeSection === 'how-it-works' ? 'active' : ''} onClick={() => handleNavClick('how-it-works')}>How It Works</a></li>
           <li><a href="#products" className={activeSection === 'products' ? 'active' : ''} onClick={() => handleNavClick('products')}>Products</a></li>

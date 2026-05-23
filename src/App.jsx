@@ -3,6 +3,7 @@ import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import VideoSection from './components/VideoSection';
 import Demo3DSection from './components/Demo3DSection';
+import DemoGameSection from './components/DemoGameSection';
 import ProblemSection from './components/ProblemSection';
 import MarketSection from './components/MarketSection';
 import ProcessSection from './components/ProcessSection';
@@ -12,7 +13,6 @@ import ProductsSection from './components/ProductsSection';
 import TechnologySection from './components/TechnologySection';
 import ComplianceSection from './components/ComplianceSection';
 import Footer from './components/Footer';
-import './App.css';
 
 function App() {
   useEffect(() => {
@@ -43,6 +43,7 @@ function App() {
       <Hero />
       <VideoSection />
       <Demo3DSection />
+      <DemoGameSection />
       <ProblemSection />
       <MarketSection />
       <ProcessSection />

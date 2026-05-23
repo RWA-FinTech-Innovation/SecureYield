@@ -1,0 +1,588 @@
+:root {
+  --bg: #152025;
+  --bg-2: #022349;
+  --surface: rgba(21, 32, 37, 0.92);
+  --line: rgba(240, 244, 241, 0.12);
+  --text: #f0f4f1;
+  --muted: rgba(240, 244, 241, 0.55);
+  --accent: #a9f00f;
+  --pixel-font: 'Press Start 2P', monospace;
+  --ui-font: 'Syne', ui-sans-serif, system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+html.embedded-root,
+body.embedded,
+body.embedded-body {
+  background: #0a1518;
+  color: var(--text);
+  font-family: var(--ui-font);
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.quest-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 560px;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+}
+
+.quest-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  flex-shrink: 0;
+}
+
+.quest-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quest-header__brand h1 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.quest-header__brand p {
+  margin: 2px 0 0;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.quest-pixel {
+  font-family: var(--pixel-font);
+  font-size: 1.2rem;
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(169, 240, 15, 0.5);
+}
+
+.quest-header__actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.quest-btn--nav {
+  padding: 6px 10px;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-color: rgba(169, 240, 15, 0.35);
+  color: var(--accent);
+}
+
+.quest-btn--nav:hover:not(:disabled) {
+  background: rgba(169, 240, 15, 0.12);
+  box-shadow: 0 0 10px rgba(169, 240, 15, 0.25);
+}
+
+.quest-mode {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+}
+
+.quest-mode--static-demo {
+  color: var(--muted);
+}
+
+.quest-mode--live-local {
+  color: var(--accent);
+  border-color: rgba(169, 240, 15, 0.35);
+}
+
+.quest-layout {
+  display: grid;
+  grid-template-columns: minmax(200px, 240px) minmax(0, 1fr) minmax(220px, 280px);
+  flex: 1;
+  min-height: 0;
+  gap: 0;
+}
+
+@media (max-width: 960px) {
+  .quest-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+  .quest-sidebar--left {
+    order: 2;
+    max-height: 140px;
+    overflow: auto;
+  }
+  .quest-sidebar--right {
+    order: 3;
+  }
+  .quest-main {
+    order: 1;
+  }
+}
+
+.quest-sidebar {
+  padding: 12px;
+  border-right: 1px solid var(--line);
+  overflow-y: auto;
+  background: var(--surface);
+}
+
+.quest-sidebar--right {
+  border-right: none;
+  border-left: 1px solid var(--line);
+}
+
+.quest-main {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.quest-canvas-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 320px;
+  background: #0a1518;
+}
+
+.quest-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+}
+
+.quest-hint {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+  font-size: 0.7rem;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.quest-hint kbd {
+  font-family: var(--pixel-font);
+  font-size: 0.55rem;
+  padding: 2px 6px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  color: var(--accent);
+}
+
+.quest-hint__gate strong {
+  color: var(--accent);
+}
+
+.quest-panel {
+  background: rgba(10, 21, 24, 0.5);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.quest-panel__title {
+  margin: 0 0 10px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+.quest-panel__subtitle {
+  margin: 14px 0 8px;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.quest-panel__hint {
+  margin: 10px 0 0;
+  font-size: 0.65rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.quest-panel__hint code {
+  font-size: 0.6rem;
+  color: var(--accent);
+}
+
+.quest-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.quest-progress__bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(169, 240, 15, 0.5);
+  transition: width 0.4s ease;
+}
+
+.quest-progress span {
+  position: relative;
+  z-index: 1;
+  margin-left: auto;
+  padding-right: 6px;
+  font-size: 0.6rem;
+  font-family: var(--pixel-font);
+}
+
+.quest-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.quest-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 0.72rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  opacity: 0.55;
+}
+
+.quest-step--active {
+  opacity: 1;
+}
+
+.quest-step--done {
+  opacity: 0.85;
+}
+
+.quest-step__dot {
+  width: 8px;
+  height: 8px;
+  border: 2px solid var(--muted);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.quest-step--active .quest-step__dot {
+  box-shadow: 0 0 8px currentColor;
+}
+
+.quest-step strong {
+  display: block;
+  font-size: 0.65rem;
+  color: var(--accent);
+}
+
+.quest-step span {
+  color: var(--muted);
+  font-size: 0.62rem;
+}
+
+.quest-step__check {
+  margin-left: auto;
+  color: var(--accent);
+}
+
+.quest-btn {
+  font-family: var(--ui-font);
+  font-weight: 700;
+  font-size: 0.72rem;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  background: transparent;
+  color: var(--text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.quest-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quest-btn--primary {
+  background: var(--accent);
+  color: #0a1518;
+  border-color: var(--accent);
+}
+
+.quest-btn--primary:hover:not(:disabled) {
+  box-shadow: 0 0 16px rgba(169, 240, 15, 0.45);
+}
+
+.quest-btn--ghost {
+  color: var(--muted);
+}
+
+.quest-btn--ghost:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.quest-btn--wide {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.quest-wallet code {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.68rem;
+  word-break: break-all;
+}
+
+.quest-wallet__status {
+  font-size: 0.68rem;
+  color: var(--accent);
+}
+
+.quest-wallet__status--off {
+  color: var(--muted);
+}
+
+.quest-assets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.quest-asset {
+  flex: 1 1 80px;
+  min-width: 72px;
+  padding: 6px 8px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 0.65rem;
+}
+
+.quest-asset__icon {
+  margin-right: 4px;
+}
+
+.quest-asset__label {
+  color: var(--muted);
+  margin-right: 4px;
+}
+
+.quest-asset strong {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--pixel-font);
+  font-size: 0.55rem;
+  color: var(--accent);
+}
+
+.quest-gate-card h3 {
+  margin: 0 0 6px;
+  font-size: 0.85rem;
+}
+
+.quest-gate-card p {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.quest-gate-card {
+  border-left: 3px solid var(--accent);
+  padding-left: 10px;
+}
+
+.quest-gate-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.quest-gate-link {
+  width: 100%;
+  text-align: left;
+  padding: 6px 8px;
+  margin-bottom: 4px;
+  font-size: 0.68rem;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.quest-gate-link--active {
+  border-color: var(--accent);
+}
+
+.quest-gate-link--done {
+  opacity: 0.7;
+}
+
+.quest-gate-link em {
+  margin-left: auto;
+  font-style: normal;
+  font-size: 0.6rem;
+  color: var(--accent);
+}
+
+.quest-proof {
+  margin-top: 8px;
+  font-size: 0.62rem;
+}
+
+.quest-proof span {
+  color: var(--muted);
+  margin-right: 6px;
+}
+
+.quest-proof code {
+  word-break: break-all;
+  color: var(--accent);
+}
+
+.quest-toast {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 16px;
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  font-size: 0.75rem;
+  z-index: 100;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.quest-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 16px;
+}
+
+.quest-modal {
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(169, 240, 15, 0.2);
+}
+
+.quest-modal h2 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.quest-modal p {
+  margin: 0 0 12px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.quest-modal__biz {
+  color: var(--text) !important;
+}
+
+.quest-modal__tx code {
+  font-size: 0.65rem;
+  word-break: break-all;
+}
+
+.quest-modal__next {
+  color: var(--accent) !important;
+}
+
+.quest-badge {
+  font-size: 3rem;
+  margin-bottom: 8px;
+}
+
+.quest-receipt {
+  display: block;
+  margin: 12px 0;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 4px;
+  font-size: 0.7rem;
+  color: var(--accent);
+}
+
+.quest-modal .quest-btn {
+  margin-top: 8px;
+}
+
+.quest-error {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  text-align: center;
+  background: #0a1518;
+  color: var(--text);
+}
+
+.quest-error h2 {
+  color: #ff6b9d;
+  margin: 0;
+}
+
+.quest-error p {
+  color: var(--muted);
+  max-width: 40ch;
+  font-size: 0.85rem;
+}
