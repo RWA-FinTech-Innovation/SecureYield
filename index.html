@@ -776,6 +776,127 @@
     .video-corner--bl { bottom: -1px; left: -1px; border-bottom: 2px solid var(--accent); border-left: 2px solid var(--accent); border-radius: 0 0 0 2px; }
     .video-corner--br { bottom: -1px; right: -1px; border-bottom: 2px solid var(--accent); border-right: 2px solid var(--accent); border-radius: 0 0 2px 0; }
 
+    /* ────────────────────────────────────────────────────────────────────── */
+    /*  3D DEMO SECTION                                                       */
+    /* ────────────────────────────────────────────────────────────────────── */
+    .demo-section {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(169,240,15,0.09), transparent 28%),
+        radial-gradient(circle at 85% 30%, rgba(100,150,255,0.12), transparent 32%),
+        linear-gradient(180deg, var(--bg-dark), #091216 50%, var(--bg-primary));
+      padding: var(--pad) 0;
+      border-top: 1px solid var(--border-solid);
+      border-bottom: 1px solid var(--border-solid);
+    }
+    .demo-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.35fr);
+      gap: 2rem;
+      align-items: center;
+    }
+    .demo-copy h2 {
+      margin-top: 0.4rem;
+      max-width: 520px;
+    }
+    .demo-copy p {
+      margin-top: 1rem;
+      color: var(--muted);
+      max-width: 520px;
+    }
+    .demo-flow {
+      display: grid;
+      gap: 0.75rem;
+      margin: 1.75rem 0;
+    }
+    .demo-flow__item {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 0.75rem;
+      align-items: start;
+      padding: 0.85rem;
+      border: 1px solid var(--border-solid);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.035);
+    }
+    .demo-flow__item span {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: var(--bg-primary);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+    .demo-flow__item strong {
+      display: block;
+      margin-bottom: 0.15rem;
+      font-size: 0.96rem;
+    }
+    .demo-flow__item small {
+      display: block;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .demo-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .demo-frame-wrap {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      min-height: 620px;
+      background: #071018;
+      box-shadow: 0 0 72px rgba(169,240,15,0.08), 0 28px 76px rgba(0,0,0,0.55);
+    }
+    .demo-frame-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px rgba(240,244,241,0.05);
+      z-index: 2;
+    }
+    .demo-frame {
+      width: 100%;
+      height: 620px;
+      border: 0;
+      display: block;
+      background: #071018;
+    }
+    .demo-frame-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 3;
+      padding: 0.45rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      background: rgba(10,21,24,0.88);
+      color: var(--accent);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    @media (max-width: 980px) {
+      .demo-shell { grid-template-columns: 1fr; }
+      .demo-frame-wrap,
+      .demo-frame { min-height: 560px; height: 560px; }
+    }
+    @media (max-width: 640px) {
+      .demo-frame-wrap,
+      .demo-frame { min-height: 520px; height: 520px; }
+      .demo-frame-badge { display: none; }
+    }
+
     /* ─── Misc helpers ───────────────────────────────────────────────────── */
     .text-accent { color: var(--accent); }
     .github-icon { width: 18px; height: 18px; }
@@ -794,6 +915,7 @@
     </a>
     <ul class="nav__links" id="navLinks">
       <li><a href="#flash">Flash Video</a></li>
+      <li><a href="#demo">3D Demo</a></li>
       <li><a href="#problem">Problem</a></li>
       <li><a href="#how-it-works">How It Works</a></li>
       <li><a href="#products">Products</a></li>
@@ -845,7 +967,7 @@
       Hong Kong's regulated framework.
     </p>
     <div class="hero__ctas reveal" data-delay="240">
-      <a href="#how-it-works" class="btn btn--primary">Explore the System</a>
+      <a href="#demo" class="btn btn--primary">Explore the 3D Demo</a>
       <a href="https://github.com/RWA-FinTech-Innovation/Tokenization" target="_blank" rel="noopener"
          class="btn btn--ghost">View Open Source Code ↗</a>
     </div>
@@ -970,6 +1092,62 @@
         <div class="video-corner video-corner--bl"></div>
         <div class="video-corner video-corner--br"></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!--  LIVE 3D DEMO                                                         -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section id="demo" class="demo-section">
+  <div class="container demo-shell">
+    <div class="demo-copy reveal">
+      <span class="kicker">Live 3D Demo</span>
+      <h2>Step Inside the SecureYield Asset Factory</h2>
+      <p>
+        The landing page explains the thesis. The 3D demo makes the thesis visible:
+        green power, AI compute, evidence vault, Hong Kong legal controls, and the
+        final RWA investor terminal.
+      </p>
+      <div class="demo-flow">
+        <div class="demo-flow__item">
+          <span>01</span>
+          <div>
+            <strong>Five-station visual walkthrough</strong>
+            <small>Green Power → AI Compute → Evidence Vault → HK Legal Gate → Investor Terminal.</small>
+          </div>
+        </div>
+        <div class="demo-flow__item">
+          <span>02</span>
+          <div>
+            <strong>90-second Judge Tour</strong>
+            <small>One click moves the camera through the full SecureYield story for live pitching.</small>
+          </div>
+        </div>
+        <div class="demo-flow__item">
+          <span>03</span>
+          <div>
+            <strong>Tokenization proof output</strong>
+            <small>The terminal shows AgentTask status, policy approval, tx hash, and evidence hash.</small>
+          </div>
+        </div>
+      </div>
+      <div class="demo-actions">
+        <a href="3d-demo/" class="btn btn--primary">Open Full 3D Demo</a>
+        <a href="#technology" class="btn btn--ghost">View Technical Architecture</a>
+      </div>
+    </div>
+
+    <div class="demo-frame-wrap reveal" data-delay="120">
+      <span class="demo-frame-badge">Embedded Preview</span>
+      <iframe
+        class="demo-frame"
+        title="SecureYield 3D Demo"
+        src="3d-demo/?embed=1&mode=static"
+        loading="lazy"
+        scrolling="no"
+        allow="fullscreen"
+      ></iframe>
     </div>
   </div>
 </section>
@@ -1606,6 +1784,7 @@
       </div>
       <nav class="footer__links" aria-label="Footer navigation">
         <a href="#problem">Problem</a>
+        <a href="#demo">3D Demo</a>
         <a href="#how-it-works">How It Works</a>
         <a href="#architecture">Architecture</a>
         <a href="#products">Products</a>
