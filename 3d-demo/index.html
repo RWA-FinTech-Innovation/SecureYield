@@ -1,84 +1,17 @@
 <!doctype html>
-<html lang="en" class="embedded-root">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="SecureYield 3D browser demo for green AI compute yield and RWA tokenization."
+      content="SecureYield interactive 3D quest for ESG proof, green AI compute revenue, and RWA tokenization."
     />
-    <title>SecureYield 3D Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
-    <script>
-      (() => {
-        const rewritePort8080Url = (raw) => {
-          try {
-            const url = new URL(raw, window.location.href);
-            if (url.port === '8080' && (url.hostname === '127.0.0.1' || url.hostname === 'localhost')) {
-              return `${window.location.origin}${url.pathname}${url.search}${url.hash}`;
-            }
-          } catch {}
-          return raw;
-        };
-
-        const originalFetch = window.fetch?.bind(window);
-        if (originalFetch) {
-          window.fetch = (input, init) => {
-            if (input instanceof Request) {
-              const rewrittenUrl = rewritePort8080Url(input.url);
-              if (rewrittenUrl === input.url) return originalFetch(input, init);
-              return originalFetch(new Request(rewrittenUrl, input), init);
-            }
-            const raw = input instanceof URL ? input.toString() : input;
-            return originalFetch(rewritePort8080Url(raw), init);
-          };
-        }
-
-        if (window.XMLHttpRequest) {
-          const originalOpen = window.XMLHttpRequest.prototype.open;
-          window.XMLHttpRequest.prototype.open = function (method, url, ...rest) {
-            return originalOpen.call(this, method, rewritePort8080Url(url), ...rest);
-          };
-        }
-      })();
-    </script>
-    <script type="module" crossorigin src="./assets/index-CbPws4hj.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Cn7BQ88P.css">
-    <style>
-      :root {
-        --bg: #152025;
-        --bg-2: #022349;
-        --surface: rgba(21,32,37,0.82);
-        --surface-2: rgba(21,32,37,0.72);
-        --line: rgba(240,244,241,0.1);
-        --text: #F0F4F1;
-        --muted: rgba(240,244,241,0.55);
-        --green: #A9F00F;
-        font-family: 'Syne', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif;
-      }
-      html, body, #root { height: 100%; }
-      body.embedded { background: transparent !important; }
-      .embedded .demo-grid { grid-template-columns: minmax(0, 1fr) clamp(420px, 30vw, 520px); gap: 0; }
-      .embedded .side-panel { padding: 24px; }
-      .embedded .scene-wrap { height: min(74vh, 820px); min-height: 560px; }
-      .embedded .scene-wrap canvas { margin: 0 !important; }
-      .embedded .main-layout { padding-top: 12px; }
-      .embedded .demo-grid::before {
-        content: 'RWA - From one electricity to Token tokens';
-        grid-column: 1 / -1;
-        padding: 0 24px 10px;
-        color: #A9F00F;
-        text-shadow: 0 0 18px rgba(169,240,15,0.28);
-        font-size: 0.82rem;
-        font-weight: 800;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-    </style>
+    <title>SecureYield ESG RWA Quest</title>
+    <script type="module" crossorigin src="/SecureYield/3d-demo/assets/index-BE5ceF0H.js"></script>
+    <link rel="stylesheet" crossorigin href="/SecureYield/3d-demo/assets/index-ScqAOd9Q.css">
   </head>
-  <body class="embedded embedded-body">
+  <body>
     <div id="root"></div>
   </body>
 </html>
